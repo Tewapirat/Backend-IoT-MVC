@@ -1,0 +1,16 @@
+name: backend-iot-services
+
+services:
+  iot-db:
+    image: mongo
+    container_name: iot-db
+    ports:
+      - "27017:27017"
+  
+  emqx:
+    image: emqx/emqx:latest
+    container_name: emqx
+    ports:
+      - "1883:1883"
+      - "18083:18083"
+      - "8083:8083" 

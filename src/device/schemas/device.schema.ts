@@ -1,0 +1,28 @@
+import { Document, model, Schema, Types } from "mongoose";
+import { Device } from "../interfaces/device.interface";
+
+
+const DeviceSchema: Schema = new Schema({
+    id: {
+        type: String,
+        default: null
+    },
+    name: {
+        type: String,
+        default: null
+    },
+    online_status: {
+        type: Boolean,
+        default: false
+    },
+    active_date: {
+        type: Date,
+        default: null
+    },
+    userId: {
+        type: Types.ObjectId,
+        default: null
+    }
+})
+
+export const DeviceModel = model<Device & Document>('Device', DeviceSchema)

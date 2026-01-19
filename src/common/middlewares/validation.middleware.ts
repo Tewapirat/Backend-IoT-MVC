@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import { validateOrReject, ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express'; 
-import { ConflictException, HttpException } from '../exceptions/HttpException';
+import { ConflictException } from '../exceptions/HttpException';
 
 /**
  * @name ValidationMiddleware

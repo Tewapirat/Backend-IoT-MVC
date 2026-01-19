@@ -1,7 +1,7 @@
 import e, { NextFunction, Request, Response } from "express";
 import Container, { Service } from "typedi";
 import { UserService } from "./user.service";
-import { User } from "./interface/user.interface";
+import { User } from "./interfaces/user.interface";
 import { CreateUserDto } from "./dto/user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { DeleteUserDto } from "./dto/delete-user.dto";

@@ -4,7 +4,7 @@ export class CreateUserDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly frist_name: string
+    readonly first_name: string
 
     @IsString()
     @IsNotEmpty()

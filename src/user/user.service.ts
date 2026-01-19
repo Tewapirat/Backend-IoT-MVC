@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { UserModel } from "./schemas/user.schema";
-import { User } from "./interface/user.interface";
+import { User } from "./interfaces/user.interface";
 import { hash } from "bcrypt";
 import { CreateUserDto } from "./dto/user.dto";
 import { HttpException } from "@/common/exceptions/HttpException";
@@ -36,10 +36,10 @@ export class UserService {
     public async update(updateUser: UpdateUserDto): Promise<User>{
         const findUser: User & Document = await UserModel.findById(updateUser._id)
         if (!findUser){
-            throw new HttpException(404, `This user ${updateUser.frist_name} not found`)
+            throw new HttpException(404, `This user ${updateUser.first_name} not found`)
         }
 
-        findUser.frist_name = updateUser.frist_name
+        findUser.first_name = updateUser.first_name
         findUser.last_name = updateUser.last_name
         await findUser.save()
         return findUser

@@ -2,8 +2,8 @@ import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { SECRET_KEY } from '@/common/config';   
 import { NotFoundException, UnauthorizedException } from '../exceptions/HttpException';
-import { UserModel } from '../../user/schemas/user.schema';
-import { DataStoredInToken, RequestWithUser } from '../../auth/interfaces/auth.interface';
+import { UserModel } from '../../user/schemas/user.schema'; 
+import { DataStoredInToken, RequestWithUser } from '../interfaces/auth.interface';
 
 const getAuthorization = (req: RequestWithUser) => {
   const coockie = req.cookies['Authorization'];

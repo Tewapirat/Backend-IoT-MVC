@@ -6,6 +6,7 @@ import { ValidationMiddleware } from "@/common/middlewares/validation.middleware
 import { CreateUserDto } from "./dto/user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { DeleteUserDto } from "./dto/delete-user.dto";
+import { AuthMiddleware } from "@/common/middlewares/auth.middleware";
 
 export class UserRoute implements Routes {
     public path = "/user";
@@ -20,11 +21,11 @@ export class UserRoute implements Routes {
     }
 
     private initiazeRoute() {
-        this.router.get(`${this.path}`, this.controller.get)
-        this.router.get(`${this.path}/:id`, this.controller.getById)
+        this.router.get(`${this.path}`,AuthMiddleware, this.controller.get)
+        this.router.get(`${this.path}/:id`,AuthMiddleware, this.controller.getById)
         this.router.post(`${this.path}`,ValidationMiddleware(CreateUserDto),this.controller.create)
-        this.router.put(`${this.path}`,ValidationMiddleware(UpdateUserDto),this.controller.update)
-        this.router.delete(`${this.path}`,ValidationMiddleware(DeleteUserDto),this.controller.delete)
+        this.router.put(`${this.path}`,AuthMiddleware, ValidationMiddleware(UpdateUserDto),this.controller.update)
+        this.router.delete(`${this.path}`,AuthMiddleware, ValidationMiddleware(DeleteUserDto),this.controller.delete)
 
 
     }

@@ -1,16 +1,19 @@
-import { Service } from "typedi";
+import Container, { Service } from "typedi";
 import { MqttClient, connect } from "mqtt";
 import { MQTT_BROKER, MQTT_PASS, MQTT_USER } from "@/common/config";
-import { error } from "console";
 import { Device } from "@/device/interfaces/device.interface";
 import { DeviceModel } from "@/device/schemas/device.schema";
 import { Document } from "mongoose";
+import { logger } from "@/common/utils/logger";
+import { DeviceLogService } from "@/device-log/device-log.service";
 
 @Service()
 export class MqttController {
 
     private client: MqttClient
     private topics = ['noob/+/out', 'noob/+/checkin', 'noob/+/will']
+
+    private logService: DeviceLogService  = Container.get(DeviceLogService)
 
 
     constructor(){
@@ -30,7 +33,7 @@ export class MqttController {
         })
 
         this.client.on('message', (topic, message)=> {
-            console.log(topic, message.toString())
+            logger.info(`${topic}, ${message.toString()}`)
             this.onMessage(topic, message.toString())
         })
     }
@@ -58,6 +61,13 @@ export class MqttController {
             if(topics[2] ==='out'){
                 device.active_date = new Date()
                 device.save()
+                if (payload.all){
+                    this.logService.create({
+                        device_id: payload.device_id,
+                        data: payload,
+                        log_date: new Date()
+                    })
+                }
             }
             if(topics[2] ==='checkin'){
                 device.online_status = true

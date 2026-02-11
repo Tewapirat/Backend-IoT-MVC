@@ -60,14 +60,18 @@ export class MqttController {
         if(device){
             if(topics[2] ==='out'){
                 device.active_date = new Date()
-                device.save()
+                if(!device.online_status){
+                    device.online_status = true
+                }
                 if (payload.all){
+                    device.data = payload
                     this.logService.create({
                         device_id: payload.device_id,
                         data: payload,
                         log_date: new Date()
                     })
                 }
+                device.save()
             }
             if(topics[2] ==='checkin'){
                 device.online_status = true

@@ -23,6 +23,19 @@ export class DeviceLogController implements IController {
         }
 
     };
+
+    public getLogCurrent = async(req:RequestWithUser, res:Response, next: NextFunction) => {
+        try {
+            const device_id = req.params.device_id
+            const logs: Log[] = await this.service.getLogCurrent(device_id)
+            res.status(200).json({message: 'get',data: logs, count: logs.length})
+            
+        } catch (error) {
+            next(error)
+            
+        }
+    };
+
     public getById = async (req: RequestWithUser, res: Response, next: NextFunction) => {
         try {
             throw new Error("Methode not implement")

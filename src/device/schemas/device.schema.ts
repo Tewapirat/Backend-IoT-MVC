@@ -15,6 +15,11 @@ const DeviceSchema: Schema = new Schema({
         type: Boolean,
         default: false
     },
+    data:{
+        type: Object,
+        default: null
+
+    },
     active_date: {
         type: Date,
         default: null

@@ -22,6 +22,7 @@ export class DeviceLogRoute implements Routes {
 
     private initiazeRoute(){
         this.router.get(`${this.path}/:device_id`,AuthMiddleware, this.controller.get)
+        this.router.get(`${this.path}/current/:device_id`,AuthMiddleware, this.controller.getLogCurrent)
         // this.router.get(`${this.path}/:id, ${this.controller.getById}`)
         // this.router.post(`${this.path}, ${this.controller.create}`)
         // this.router.put(`${this.path}, ${this.controller.update}`)
